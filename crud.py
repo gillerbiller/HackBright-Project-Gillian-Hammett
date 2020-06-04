@@ -11,6 +11,10 @@ def create_user(email, password):
 
     return user
 
+def get_user_by_id(user_id):
+
+    return User.query.get(user_id)
+
 def create_event(user, event_title, description, date):
     """Create and return a new event"""
 
@@ -22,8 +26,11 @@ def create_event(user, event_title, description, date):
     db.session.add(event)
     db.session.commit()
 
+    return event
+
 def create_guest(event, fname, lname, reply):
     """Create and return a new guest"""
+    print("\n\n\n",event, "\n\n\n")
 
     guest = Guest(event = event,
                 fname = fname,
@@ -32,5 +39,7 @@ def create_guest(event, fname, lname, reply):
 
     db.session.add(guest)
     db.session.commit()
+
+    return guest
 
 

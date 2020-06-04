@@ -57,16 +57,16 @@ class Guest(db.Model):
                         nullable = False,
                         primary_key = True)
     event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
-    guest_fname = db.Column(db.String)
-    guest_lname = db.Column(db.String)
-    guest_reply = db.Column(db.Integer) 
+    fname = db.Column(db.String)
+    lname = db.Column(db.String)
+    reply = db.Column(db.Integer) 
 
     event = db.relationship('Event', backref = 'guests')
 
     def __repr__(self):
 
-        return f"<Guest guest_id = {self.guest_id}, guest_fname = {self.guest_fname}, \
-guest_lname = {self.guest_lname}, event_id = {self.event_id}, \
+        return f"<Guest guest_id = {self.guest_id}, guest_fname = {self.guest_fname} \
+, guest_lname = {self.guest_lname}, event_id = {self.event_id}, \
 guest_reply = {self.guest_reply}>"
 
 

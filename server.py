@@ -12,7 +12,13 @@ app.jinja_env.undefined = StrictUndefined
 
 """Routes go here"""
 
+@app.route('/')
+def homepage():
+    """Render hompage"""
 
+    return render_template("hompage.html")
+
+    
 if __name__ == '__main__':
     connect_to_db(app)
     app.run(host='0.0.0.0', debug=True)
