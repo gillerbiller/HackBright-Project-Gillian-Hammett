@@ -12,8 +12,14 @@ def create_user(email, password):
     return user
 
 def get_user_by_id(user_id):
+    """Return a user by id"""
 
     return User.query.get(user_id)
+
+def get_user_by_email(email):
+    """Return a user by email"""
+
+    return User.query.filter(User.email == email).first()
 
 def create_event(user, event_title, description, date):
     """Create and return a new event"""
@@ -27,6 +33,9 @@ def create_event(user, event_title, description, date):
     db.session.commit()
 
     return event
+def get_all_events_for_user_id(user_id):
+
+    print(Event.query.filter(Event.user_id == user_id)).all()
 
 def create_guest(event, fname, lname, reply):
     """Create and return a new guest"""

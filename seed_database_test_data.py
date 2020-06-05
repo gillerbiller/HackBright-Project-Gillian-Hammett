@@ -64,7 +64,7 @@ for number in range(10):#test user loop
 
         date_selection = choice(random_dates)
 
-        date = datetime.strptime(date_selection, '%m-%d-%Y')
+        date = datetime.strptime(date_selection, '%b-%d-%Y')
     
         event = crud.create_event(user, event_title, description, date)
  

@@ -4,9 +4,22 @@
 {%block body%}
     <h1>Welcom to Event Creation</h1>
 
-    <h2>Create an account</h2>
+    <h3>Log in</h3>
 
-        <form name = "create account">
+        <form name = "login" action="/user_homepage" method="POST">
+            <p>
+                Enter your account email<input type="text" name="email">
+            </p>
+            <p>
+                Enter your password<input type="password" name="password">
+            </p>
+            <p>
+                <input type="submit">
+            </p>
+        </form> 
+        
+    <h3>Create Account</h3>    
+        <form name = "create account" action="/create_user" method="POST">
             <p>
                 Please enter your email<input type="text" name="email">
             </p>
@@ -16,21 +29,8 @@
             <p>
                 <input type="submit">
             </p>
-        </form>
+        </form>  
 
-    <h2>Log in</h2>
-
-        <form name = "create account">
-            <p>
-                Please your account email<input type="text" name="email">
-            </p>
-            <p>
-                Enter your password<input type="password" name="password">
-            </p>
-            <p>
-                <input type="submit">
-            </p>
-        </form>    
   
 {% endblock %}
 
