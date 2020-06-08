@@ -1,5 +1,6 @@
 
 from flask_sqlalchemy import SQLAlchemy
+
 from datetime import datetime
 
 db = SQLAlchemy()
@@ -40,10 +41,10 @@ class Event(db.Model):
     description = db.Column(db.Text)
 
     user = db.relationship('User', backref = 'events')
-   
+
+
 
     def __repr__(self):
-
         return f"<Event event_id = {self.event_id}, event_title = {self.event_title}, \
 Hosted by user_id = {self.user_id} in db>"
 

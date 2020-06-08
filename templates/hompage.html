@@ -4,32 +4,46 @@
 {%block body%}
     <h1>Welcom to Event Creation</h1>
 
-    <h3>Log in</h3>
+    
 
-        <form name = "login" action="/user_homepage" method="POST">
-            <p>
-                Enter your account email<input type="text" name="email">
-            </p>
-            <p>
-                Enter your password<input type="password" name="password">
-            </p>
-            <p>
-                <input type="submit">
-            </p>
-        </form> 
+        <form id = "credentials" action="/validate_user" method="post">
+            <h3>Log in</h3>
         
-    <h3>Create Account</h3>    
-        <form name = "create account" action="/create_user" method="POST">
-            <p>
-                Please enter your email<input type="text" name="email">
-            </p>
-            <p>
-                Enter a password<input type="password" name="password">
-            </p>
-            <p>
-                <input type="submit">
-            </p>
-        </form>  
+            Enter your account email<input type="text" id="email" placeholder="user@gmail.com" required>
+
+           <br>
+
+            Enter your password<input type="password" id="password" placeholder="*******" required>
+
+            <br>
+            
+             <button id="login" type = "submit">Log In</button>
+        </form> 
+
+        
+        <form id = "create_account" action="/create_user" method="POST">
+            <h3>Create Account</h3>
+            
+                Please enter your email<input type="text" id="new_email" placeholder="myemail@gmail.com" required>
+
+                <br>
+
+                Enter a password<input type="password" id="new_password" placeholder="******" required>
+
+                <br>
+           
+                <button id="new_user" type="submit">Make Account</button>
+            
+        </form> 
+
+ <!-------------- User Homepage ---------------->
+        <h2> </h2>
+        <div id='user_events' style="display: none"></div>
+        <button id = 'log_out' style="display: none">Log Out</button>
+
+
+    
+    <script src="/static/homepage.js"></script>
 
   
 {% endblock %}
