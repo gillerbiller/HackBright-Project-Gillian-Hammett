@@ -1,5 +1,6 @@
 "use strict";
 
+
 $('#login').on('click', (evt) => {
     evt.preventDefault();
 
@@ -8,21 +9,20 @@ $('#login').on('click', (evt) => {
         'password': $('#password').val()
     };
     if ($("#email").val() === "" || $("#password").val() === "") {
-        alert('you did not fill out one of the fields');
+        alert('You did not fill out one of the fields');
         return false;
     };
     $.post('/validate_user', formInput, (res) => {
-        console.log(res)
 
+        if(res === 'null'){
+            alert('Invalid log in. Please try again or create an account.');
+            return false;
+        }
+      
         const email = (res[1]);
         
         const resUserData = {'user_id':(res[0])};
-
-        //if (res[0] === null || res[1] === null || res[2] === null){
-        //    alert('Invalid log in')
-        //    return false;
-        //};
-        
+  
     $.post('/user_homepage', resUserData, (res) => {
 
         for ( const event of res){
@@ -42,6 +42,7 @@ $('#login').on('click', (evt) => {
 
     $('#user_events').show();
     $('#log_out').show();
+    $('#create_event').show();
     $('#create_account').hide();
     $('#credentials').hide();
 

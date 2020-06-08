@@ -16,7 +16,7 @@ app.jinja_env.undefined = StrictUndefined
 def homepage():
     """Render hompage"""
 
-    return render_template("hompage.html")
+    return render_template("index.html")
 
 @app.route('/create_user', methods=['POST'])
 def create_user():
@@ -25,17 +25,9 @@ def create_user():
     email = request.form.get('new_email')
     password = request.form.get('new_password')
 
-#    user = crud.get_user_by_email(email, password)
-#
-#    if User.email != None and User.password !=None:
-#        return False
-#
-#    else:
     user = crud.create_user(email, password) #ADDED user to db error is the json issue
     return user
        
-
-   
 
 @app.route('/validate_user', methods=['POST'])
 def user_login():
@@ -44,14 +36,14 @@ def user_login():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    user = crud.get_user_by_email(email, password)
+    user = crud.get_user_by_email_password(email, password)
     #returns  <User user_id = 1 email = user0@test.com> object?
     print("*****\n\n\n\n",user,"\n\n\n\n*****")
 
-    if user:  
-        return(jsonify(user.user_id, user.email)) #returns this <Response 29 bytes [200 OK]>       
+    if user == None:  
+        return 'null'    
     else:
-        return None
+        return (jsonify(user.user_id, user.email)) #returns this <Response 29 bytes [200 OK]> 
 
 
 @app.route('/user_homepage', methods=['POST'])

@@ -1,5 +1,4 @@
 from model import db, User, Event, Guest, connect_to_db
-from flask import jsonify
 
 
 def create_user(email, password):
@@ -18,10 +17,19 @@ def get_user_by_id(user_id):
 
     return User.query.get(user_id)
 
-def get_user_by_email(email, password):
-    """Return a user by email"""
+def get_user_by_email_password(email, password):
+    """Return a user by email and password"""
 
-    return User.query.filter(User.email == email, User.password == password).first()
+    user = User.query.filter(User.email == email, User.password == password).first()
+
+    print("*****\n\n\n\n", user, "\n\n\n\n*****")
+
+    if user == None:
+        return None
+    else:
+        return user
+
+    #return User.query.filter(User.email == email, User.password == password).first()
 
 def create_event(user, event_title, description, date):
     """Create and return a new event"""
