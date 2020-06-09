@@ -4,8 +4,6 @@
 {%block body%}
     <h1>Welcom to Event Creation</h1>
 
-    
-
         <form id = "credentials" action="/validate_user" method="post">
             <h3>Log in</h3>
         
@@ -17,7 +15,8 @@
 
             <br>
             
-             <button id="login" type = "submit">Log In</button>
+             <button id="login" type = "submit" action="">Log In</button>
+
         </form> 
 
         
@@ -36,18 +35,59 @@
             
         </form> 
 
- <!-------------- User Homepage ---------------->
+        <button id ='log_out' 
+                form="credentials" 
+                value="Reset Form" 
+                style="display: none" 
+                onclick="resetHompage()">
+                Log Out
+        </button>
+
+ <!-------------- user page ---------------->
+
         <h2> </h2>
         <div id='user_events' style="display: none"></div>
-        <button id = 'log_out' style="display: none">Log Out</button>
-        <br>
-        <button id = 'create_event' style='display: none'>Make a new event!</button>
 
+        <button id ='make_event'>Make a new event!</button>
+    
+    
  <!-------------- Create Event page ---------------->
 
-
+        <form id='event_layout'>
+            Event title
+            <input type="text" id="title">
+            <br>
+            Event Description
+            <br>
+            <textarea id="description"></textarea> 
+            <br>
+            Event date (enter date like 'Jan-20-2020')
+            <input type="text" id="date">
+            <br>
+            <button id='commit_event_db'>Create Event!</button>
+            <br>
+            <br>
+            Guest replies
+            <input type="text" id="fname" placeholder="First Name">
+            <input type="text" id="lname" placeholder="Last Name">
+            <br>
+            Do you plan to attend?
+            <input type="checkbox" id="yes">Yes
+            <input type="checkbox" id="no">No
+            <input type="checkbox" id="maybe">Maybe
+        </form>
     
+    
+        <script>
+            function resetHompage(){
+                document.getElementById('#credentials').reset();
+                document.getElementById('#create_account').reset();
+            }     
+        </script>
     <script src="/static/homepage.js"></script>
+    <script src="/static/newUser.js"></script>
+    <script src="/static/eventCreation.js"></script> 
+
 
   
 {% endblock %}

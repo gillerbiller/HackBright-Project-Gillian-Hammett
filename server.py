@@ -25,8 +25,14 @@ def create_user():
     email = request.form.get('new_email')
     password = request.form.get('new_password')
 
-    user = crud.create_user(email, password) #ADDED user to db error is the json issue
-    return user
+    user = crud.create_user(email, password) 
+
+    print("*****\n\n\n\n",user,"\n\n\n\n*****")
+
+    if user != None:
+        return 'account_created'
+    else:
+        return 'null'
        
 
 @app.route('/validate_user', methods=['POST'])
@@ -37,13 +43,11 @@ def user_login():
     password = request.form.get("password")
 
     user = crud.get_user_by_email_password(email, password)
-    #returns  <User user_id = 1 email = user0@test.com> object?
-    print("*****\n\n\n\n",user,"\n\n\n\n*****")
-
+  
     if user == None:  
         return 'null'    
     else:
-        return (jsonify(user.user_id, user.email)) #returns this <Response 29 bytes [200 OK]> 
+        return (jsonify(user.user_id, user.email)) 
 
 
 @app.route('/user_homepage', methods=['POST'])
@@ -65,11 +69,12 @@ def user_page():
 
     return jsonify(event_lst)
 
-@app.route('/log_out')
-def user_log_out():
+@app.route('/make_new_event', methods=['POST'])
+def new_event():
 
-    return redirect('/')
-
+    event_title = request.form.get("event_title")
+    description = request.form.get("description")
+    date = request.form.get("date")
 
 
 if __name__ == '__main__':

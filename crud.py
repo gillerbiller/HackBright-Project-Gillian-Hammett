@@ -4,13 +4,23 @@ from model import db, User, Event, Guest, connect_to_db
 def create_user(email, password):
     """Create and return a new user"""
 
+    check_user_in_db = User.query.filter(User.email == email, \
+                                        User.password == password).first()
+
+    print("*****\n\n\n\n",check_user_in_db,"\n\n\n\n*****")
+
     user = User(email = email, 
                 password = password)
 
-    db.session.add(user)
-    db.session.commit()
+    if check_user_in_db == None:
 
-    return user
+        db.session.add(user)
+        db.session.commit()
+
+        return user
+    else:
+        return None
+
 
 def get_user_by_id(user_id):
     """Return a user by id"""
@@ -21,8 +31,6 @@ def get_user_by_email_password(email, password):
     """Return a user by email and password"""
 
     user = User.query.filter(User.email == email, User.password == password).first()
-
-    print("*****\n\n\n\n", user, "\n\n\n\n*****")
 
     if user == None:
         return None
