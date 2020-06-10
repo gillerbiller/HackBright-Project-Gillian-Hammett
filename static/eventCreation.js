@@ -28,18 +28,13 @@ $('#commit_event_db').on('click', (evt) => {
     console.log(eventFormInput)
 
     if ($("#title").val() === "" || $("#description").val() === "" 
-|| $('#date').val() === "") {
+        || $('#date').val() === "") {
+
         alert('You did not fill out one of the fields for your event');
+
         return false;
     };
-
-    $.post('/make_new_event', eventFormInput, (res) => {
-
-        if(res !== 'null'){
-            alert('You created a new event.');
-            return false 
-            
-        }
+});
 
 //    $('h1').text('Event Creation')
 //    $('h2').text('Your events')
@@ -53,4 +48,3 @@ $('#commit_event_db').on('click', (evt) => {
 
     
 
-});

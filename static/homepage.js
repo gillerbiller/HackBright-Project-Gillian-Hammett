@@ -20,48 +20,52 @@ $('#login').on('click', (evt) => {
 
     $.post('/validate_user', formInput, (res) => {
 
-        console.log(res)
-
         if(res === 'null'){
             alert('Invalid log in. Please try again or create an account.');
             return false;
         }
       
-        const email = (res[1]); 
-        const resUserData = {'user_id':(res[0])};
+        window.sessionStorage.setItem('user_id', res['user_id']);
+        window.sessionStorage.setItem('email', res['email']);
 
-    //Valid login get user data for user homepge//
-
-    $.post('/user_homepage', resUserData, (res) => {
-
-        console.log(res)
-
-        for ( const event of res){
-
-            const title = $(`<ul>${event.event_title}</ul>`)
-            $('#user_events').append(title);
-
-            const description = $(`<li>${event.description}</li>`)
-            $('#user_events').append(description);
-
-            const date = $(`<li>${event.date}</li>`)
-            $('#user_events').append(date);
-
-        }
-    $('h1').text(`Welcome Back! ${email}`)
-    $('h2').text('Your events')
-
-    $('#user_events').show();
-    $('#log_out').show();
-    $('#make_event').show();
-
-    $('#create_account').hide();
-    $('#credentials').hide();
-    $('#event_layout').hide();
-
-    });
     });
 });
+
+//If login valid get user data for user homepge//
+
+
+        
+
+//$.post('/user_homepage', user_id, (res) => {
+
+//    console.log(res)
+
+//    for ( const event of res){
+//
+//        const title = $(`<ul>${event.event_title}</ul>`)
+//        $('#user_events').append(title);
+//
+//        const description = $(`<li>${event.description}</li>`)
+//        $('#user_events').append(description);
+
+//        const date = $(`<li>${event.date}</li>`)
+//        $('#user_events').append(date);
+
+//    }
+
+//    $('h1').text(`Welcome Back! ${email}`)
+//    $('h2').text('Your events')
+
+//    $('#user_events').show();
+//    $('#log_out').show();
+//    $('#make_event').show();
+
+//    $('#create_account').hide();
+//    $('#credentials').hide();
+//    $('#event_layout').hide();
+
+//});
+
 
 //Revert back to hompage display upon logout
 
@@ -80,6 +84,4 @@ $('#log_out').on('click', (evt) =>{
     $('#credentials').show();
     
 });
-
-
 

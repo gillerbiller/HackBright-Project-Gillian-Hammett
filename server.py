@@ -47,13 +47,15 @@ def user_login():
     if user == None:  
         return 'null'    
     else:
-        return (jsonify(user.user_id, user.email)) 
+        return jsonify({'user_id': user.user_id, 'email' : user.email}) 
 
 
 @app.route('/user_homepage', methods=['POST'])
 def user_page():
 
-    user_id = request.form.get('user_id')
+    user_id = user_id
+
+    print("****\n\n\n\n",user_id,"****\n\n\n")
 
     events = crud.get_all_events_for_user_by_id(user_id)
 
@@ -71,11 +73,12 @@ def user_page():
 
 @app.route('/make_new_event', methods=['POST'])
 def new_event():
-
+    #user_id = request from session?
     event_title = request.form.get("event_title")
     description = request.form.get("description")
     date = request.form.get("date")
 
+    new_event = crud.create_event(user_id, event_title, description, date)
 
 if __name__ == '__main__':
     connect_to_db(app)

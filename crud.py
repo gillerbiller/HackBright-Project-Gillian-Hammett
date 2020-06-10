@@ -7,8 +7,6 @@ def create_user(email, password):
     check_user_in_db = User.query.filter(User.email == email, \
                                         User.password == password).first()
 
-    print("*****\n\n\n\n",check_user_in_db,"\n\n\n\n*****")
-
     user = User(email = email, 
                 password = password)
 
