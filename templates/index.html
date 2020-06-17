@@ -2,6 +2,12 @@
 {% block title %}Homepage{%endblock%}
 
 {%block body%}
+ <div class="container-fluid">
+
+    <div class="site-wrapper">
+    <div class="site-wrapper-inner">
+        
+     <img src="/static/img/HP_background.jpg">
     <h1>Welcom to Event Creation</h1>
 
         <form id = "credentials" action="/validate_user" method="post">
@@ -36,13 +42,15 @@
         </form> 
 
         <button id ='log_out' 
-                form="credentials" 
-                value="Reset Form" 
-                style="display: none" 
-                onclick="resetHompage()">
+                style="display: none">
                 Log Out
         </button>
 
+        <button id ='back' 
+                style="display: none">
+                Back to previous page
+        </button>
+</div>
  <!-------------- user page ---------------->
 
         <h2> </h2>
@@ -64,33 +72,20 @@
             Event date (enter date like 'Jan-20-2020')
             <input type="text" id="date">
             <br>
+            <br>
             <button id='commit_event_db'>Create Event!</button>
-            <br>
-            <br>
-            Guest replies
-            <input type="text" id="fname" placeholder="First Name">
-            <input type="text" id="lname" placeholder="Last Name">
-            <br>
-            Do you plan to attend?
-            <input type="checkbox" id="yes">Yes
-            <input type="checkbox" id="no">No
-            <input type="checkbox" id="maybe">Maybe
         </form>
-    
-    
-        <script>
-            function resetHompage(){
-                document.getElementById('#credentials').reset();
-                document.getElementById('#create_account').reset();
-            }     
-        </script>
+        <div id="invite_link"></div>
+
+    <script >let event_id ;</script>
     <script src="/static/homepage.js"></script>
+    <script src="/static/userPage.js"></script> 
     <script src="/static/newUser.js"></script>
     <script src="/static/eventCreation.js"></script> 
 
-
-  
 {% endblock %}
+  
+ 
 
 
     

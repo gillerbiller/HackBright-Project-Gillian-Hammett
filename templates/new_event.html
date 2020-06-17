@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Invite{%endblock%}
+
+{%block body%}
+
+<div id="invite">
+    <h1>{{event.event_title}}</h1>
+
+    <p>{{event.description}}</p>
+
+    <p>{{event.date}}</p>
+
+    <form id="replies">
+        Guest replies
+            <input type="text" id="fname" placeholder="First Name">
+            <input type="text" id="lname" placeholder="Last Name">
+            <br>
+            <br>
+            Do you plan to attend?
+            <input type="radio" id="yes" value="0" name="reply">
+            <label for="yes">Yes</label>
+
+            <input type="radio" id="no" value="1" name="reply">
+            <label for="no">No</label>
+
+            <input type="radio" id="maybe" value="2" name="reply">
+            <label for="maybe">Maybe</label>
+            <br>
+            <br>
+            <button type="Submit" id="guest_reply">Submit Reply</button>
+    </form>
+</div>
+    <script id='event_id'> const event_id = {{event.event_id}} </script>
+    <script src="/static/guestReply.js"></script>
+{% endblock %}

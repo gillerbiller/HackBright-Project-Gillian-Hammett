@@ -1,16 +1,13 @@
 from flask import Flask, render_template, request, flash, session, redirect, jsonify
 
 from model import connect_to_db
-
 import crud
-
 from jinja2 import StrictUndefined
 
 app = Flask(__name__)
 app.secret_key = "hbprojectgh"
 app.jinja_env.undefined = StrictUndefined
 
-"""Routes go here"""
 
 @app.route('/')
 def homepage():
@@ -26,8 +23,6 @@ def create_user():
     password = request.form.get('new_password')
 
     user = crud.create_user(email, password) 
-
-    print("*****\n\n\n\n",user,"\n\n\n\n*****")
 
     if user != None:
         return 'account_created'
@@ -53,9 +48,7 @@ def user_login():
 @app.route('/user_homepage', methods=['POST'])
 def user_page():
 
-    user_id = user_id
-
-    print("****\n\n\n\n",user_id,"****\n\n\n")
+    user_id = request.form.get("user_id") 
 
     events = crud.get_all_events_for_user_by_id(user_id)
 
@@ -71,14 +64,55 @@ def user_page():
 
     return jsonify(event_lst)
 
+
 @app.route('/make_new_event', methods=['POST'])
 def new_event():
-    #user_id = request from session?
+    user_id1 = request.form.get("user_id")
+    user_id = int(user_id1)
     event_title = request.form.get("event_title")
     description = request.form.get("description")
     date = request.form.get("date")
 
-    new_event = crud.create_event(user_id, event_title, description, date)
+    event = crud.create_event(user_id, event_title, description, date)
+    
+    return jsonify(f'/invite/{event.event_id}') 
+
+ 
+
+
+@app.route('/invite/<event_id>', methods=['GET'])
+def invite_link(event_id):
+
+   
+
+    event = crud.get_event_by_id(event_id)
+   
+    return render_template("new_event.html",
+                           event=event)
+
+
+@app.route('/create_guest', methods=['POST'])
+def new_guest_for_specific_event():
+
+    event_id = request.form.get('event_id')
+    fname = request.form.get('fname')
+    lname = request.form.get('lname')
+    reply = request.form.get('reply')
+
+    guest = crud.create_guest(event_id, fname, lname, reply)
+
+
+    guest = {
+        'fname': guest.fname,
+        'lname': guest.lname,
+    }
+
+    return jsonify(guest)
+
+
+
+
+
 
 if __name__ == '__main__':
     connect_to_db(app)

@@ -66,9 +66,9 @@ class Guest(db.Model):
 
     def __repr__(self):
 
-        return f"<Guest guest_id = {self.guest_id}, guest_fname = {self.guest_fname} \
-, guest_lname = {self.guest_lname}, event_id = {self.event_id}, \
-guest_reply = {self.guest_reply}>"
+        return f"<Guest guest_id = {self.guest_id}, fname = {self.fname} \
+,lname = {self.lname}, event_id = {self.event_id}, \
+reply = {self.reply}>"
 
 
 

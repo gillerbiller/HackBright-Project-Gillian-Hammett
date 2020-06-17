@@ -37,10 +37,10 @@ def get_user_by_email_password(email, password):
 
     #return User.query.filter(User.email == email, User.password == password).first()
 
-def create_event(user, event_title, description, date):
+def create_event(user_id, event_title, description, date):
     """Create and return a new event"""
 
-    event = Event(user = user,
+    event = Event(user_id = user_id,
                 event_title = event_title,
                 description = description,
                 date = date)
@@ -56,11 +56,16 @@ def get_all_events_for_user_by_id(user_id):
 
     return user.events
 
-def create_guest(event, fname, lname, reply):
-    """Create and return a new guest"""
-    print("\n\n\n",event, "\n\n\n")
+def get_event_by_id(event_id):
 
-    guest = Guest(event = event,
+    event = Event.query.get(event_id)
+
+    return event
+
+def create_guest(event_id, fname, lname, reply):
+    """Create and return a new guest"""
+
+    guest = Guest(event_id = event_id,
                 fname = fname,
                 lname = lname,
                 reply = reply)
