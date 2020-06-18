@@ -17,8 +17,7 @@ def homepage():
 
 @app.route('/create_user', methods=['POST'])
 def create_user():
-    """Create new user"""
-
+   
     email = request.form.get('new_email')
     password = request.form.get('new_password')
 
@@ -32,7 +31,7 @@ def create_user():
 
 @app.route('/validate_user', methods=['POST'])
 def user_login():
-    """Allow existing user to login"""
+    
 
     email = request.form.get("email")
     password = request.form.get("password")
@@ -112,8 +111,8 @@ def new_guest_for_specific_event():
 
 
 
-
-
 if __name__ == '__main__':
     connect_to_db(app)
     app.run(host='0.0.0.0', debug=True)
+
+    

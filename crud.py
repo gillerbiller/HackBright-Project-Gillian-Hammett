@@ -5,7 +5,7 @@ def create_user(email, password):
     """Create and return a new user"""
 
     check_user_in_db = User.query.filter(User.email == email, \
-                                        User.password == password).first()
+                                       User.password == password).first()
 
     user = User(email = email, 
                 password = password)
@@ -16,6 +16,7 @@ def create_user(email, password):
         db.session.commit()
 
         return user
+        
     else:
         return None
 

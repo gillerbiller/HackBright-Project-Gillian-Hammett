@@ -43,7 +43,7 @@ all over the world in this remote rave! Even apart, music brings us together."
 and small bites"
 },
 {
-    'event_title':  "Hicking Trip",
+    'event_title':  "Hiking Trip",
     'date': 'Jun-30-2020',
     'description': "Parks are open, lets get out in nature!"
 },
@@ -90,9 +90,9 @@ random_names = {
 
 for number in range(10):#test user loop
     email = f"user{number}@test.com"
-    password = f"testing{number}"
+    password = f"test{number}"
 
-    user = crud.create_user(email, password)
+    user_id = crud.create_user(email, password)
 
     for _ in range (2): #Events linked to a users
 
@@ -104,11 +104,11 @@ for number in range(10):#test user loop
 
         date_string = test_event.get('date')
 
-        date = datetime.strptime(date_string, '%b-%d-%Y', 'UTC')
+        date = datetime.strptime(date_string, '%b-%d-%Y')
     
-        event = crud.create_event(user, event_title, description, date)
+        event_id = crud.create_event(user_id, event_title, description, date)
  
-        for _ in range(10):#Guest data loop supposed to link to an event 
+        for _ in range(5):#Guest data loop supposed to link to an event 
 
             fname = choice(list(random_names))
 
@@ -116,6 +116,6 @@ for number in range(10):#test user loop
 
             reply = randint(0,2)
 
-            crud.create_guest(event, fname, lname, reply)
+            crud.create_guest(event_id, fname, lname, reply)
 
 

@@ -2,13 +2,12 @@
 {% block title %}Homepage{%endblock%}
 
 {%block body%}
- <div class="container-fluid">
-
-    <div class="site-wrapper">
+<div class="site-wrapper">
     <div class="site-wrapper-inner">
-        
-     <img src="/static/img/HP_background.jpg">
-    <h1>Welcom to Event Creation</h1>
+
+    <!--<img src="/static/img/HP_background.jpg">-->
+    <h1>Welcom to Growing Ties!</h1>
+        <h3>Personal Event Creation Space</h3>
 
         <form id = "credentials" action="/validate_user" method="post">
             <h3>Log in</h3>
@@ -50,7 +49,7 @@
                 style="display: none">
                 Back to previous page
         </button>
-</div>
+
  <!-------------- user page ---------------->
 
         <h2> </h2>
@@ -76,13 +75,19 @@
             <button id='commit_event_db'>Create Event!</button>
         </form>
         <div id="invite_link"></div>
-
+   
+    
     <script >let event_id ;</script>
-    <script src="/static/homepage.js"></script>
-    <script src="/static/userPage.js"></script> 
-    <script src="/static/newUser.js"></script>
-    <script src="/static/eventCreation.js"></script> 
-
+    <script src="/static/JS_files/homepage.js"></script>
+    <script src="/static/JS_files/userPage.js"></script> 
+    <script src="/static/JS_files/newUser.js"></script>
+    <script src="/static/JS_files/eventCreation.js"></script> 
+    
+    <footer>
+        <p>Designed and Owned by Gillian Hammett 2020.</p>
+    </footer>
+    </div>
+</div>
 {% endblock %}
   
  

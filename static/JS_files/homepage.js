@@ -49,7 +49,7 @@ $('#login').on('click', (evt) => {
         let email = window.sessionStorage.getItem('email');
         console.log(email)
 
-        $('h1').text(`Welcome Back ${email}!`)
+        $('h1').text(`Welcome Back ${email} to your`)
         $('h2').text('Your events')
 
         $('#user_events').show();

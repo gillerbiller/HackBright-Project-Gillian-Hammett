@@ -1,8 +1,9 @@
-body {
-    background: #333 url("/static/img/homepage-background.jpg");
-    background-size: cover;
 
-    color: white;
+body {
+    /*background: #333 url("/static/img/HP_background.jpg");
+    background-size: cover;*/
+
+    color: black;
     text-align: center;
 }
 
