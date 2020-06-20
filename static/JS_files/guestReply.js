@@ -13,7 +13,7 @@ $('#guest_reply').on('click', (evt) => {
         'lname' : $('#lname').val(),
         'reply' : reply
     };
-
+    console.log(guestFormInput)
     $.post('/create_guest', guestFormInput, (res) => {
         console.log(res)
 

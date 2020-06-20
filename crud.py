@@ -76,4 +76,9 @@ def create_guest(event_id, fname, lname, reply):
 
     return guest
 
+def get_guest_for_event(event_id):
+
+    event = Event.query.get(event_id)
+
+    return event.guests
 

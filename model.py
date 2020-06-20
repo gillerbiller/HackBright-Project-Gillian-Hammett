@@ -1,7 +1,6 @@
 
 from flask_sqlalchemy import SQLAlchemy
 
-from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -37,7 +36,7 @@ class Event(db.Model):
 
     event_title = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    date = db.Column(db.DateTime)
+    date = db.Column(db.Date)
     description = db.Column(db.Text)
 
     user = db.relationship('User', backref = 'events')

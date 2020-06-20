@@ -27,8 +27,10 @@ $('#commit_event_db').on('click', (evt) => {
         'date': $('#date').val()
     };
 
+    console.log(eventFormInput)
+
     if ($("#event_title").val() === "" || $("#description").val() === "" 
-        || $('#date').val() === "") {
+        || $('#datepicker-13').val() === "") {
 
         alert('You did not fill out one of the fields for your event');
 
@@ -48,6 +50,8 @@ $('#commit_event_db').on('click', (evt) => {
     });
 
 });
+
+
 
 $('#back').on('click', (evt) => {
     evt.preventDefault();

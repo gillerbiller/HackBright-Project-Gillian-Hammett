@@ -1,9 +1,9 @@
 
 body {
-    /*background: #333 url("/static/img/HP_background.jpg");
-    background-size: cover;*/
+    background: #333 url("/static/img/side_flower.jpg");
+    background-size: cover;
 
-    color: black;
+    color: #228B22;
     text-align: center;
 }
 

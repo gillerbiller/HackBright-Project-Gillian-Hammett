@@ -2,11 +2,10 @@
 {% block title %}Homepage{%endblock%}
 
 {%block body%}
-<div class="site-wrapper">
-    <div class="site-wrapper-inner">
 
-    <!--<img src="/static/img/HP_background.jpg">-->
-    <h1>Welcom to Growing Ties!</h1>
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top"></nav>
+
+    <h1>Welcome to Growing Ties!</h1>
         <h3>Personal Event Creation Space</h3>
 
         <form id = "credentials" action="/validate_user" method="post">
@@ -68,7 +67,7 @@
             <br>
             <textarea id="description"></textarea> 
             <br>
-            Event date (enter date like 'Jan-20-2020')
+            Pick date 
             <input type="text" id="date">
             <br>
             <br>
@@ -76,18 +75,25 @@
         </form>
         <div id="invite_link"></div>
    
-    
     <script >let event_id ;</script>
-    <script src="/static/JS_files/homepage.js"></script>
-    <script src="/static/JS_files/userPage.js"></script> 
-    <script src="/static/JS_files/newUser.js"></script>
-    <script src="/static/JS_files/eventCreation.js"></script> 
+
+    <script>
+        $(document).ready(function (){
+            const date_selection = $('#date');
+            const options = {
+                format: 'mm/dd/yyyy',
+                todayHighlight: true,
+                autoclose: true
+            };
+            date_selection.datepicker(options);
+        })
+    </script>
+
     
-    <footer>
+<!--   <footer>
         <p>Designed and Owned by Gillian Hammett 2020.</p>
-    </footer>
-    </div>
-</div>
+    </footer>-->
+   
 {% endblock %}
   
  

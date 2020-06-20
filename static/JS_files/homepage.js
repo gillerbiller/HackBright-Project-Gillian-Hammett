@@ -72,8 +72,9 @@ $('#log_out').on('click', (evt) =>{
 
     window.sessionStorage.clear();
     $('#user_events').html('')
-    $('#email').text('')
-    $('#password').text('') 
+    $('#credentials')[0].reset()
+    //$('#email').text('')
+    //$('#password').text('') 
 
     $('h1').text('Welcome To Event Creations!')
     $('h2').text('Your events').hide()

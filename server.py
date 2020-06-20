@@ -51,6 +51,8 @@ def user_page():
 
     events = crud.get_all_events_for_user_by_id(user_id)
 
+    print("****\n\n\n", events, "****\n\n\n")
+
     event_lst = []
     for event in events:
         event_lst.append(
@@ -60,6 +62,17 @@ def user_page():
                             'date': event.date
                             }
                         )
+  
+    event_id_lst = []
+    for event in events:
+        event_id_lst.append(event.event_id)
+
+    for event_id in event_id_lst:
+
+        guest = crud.get_guest_for_event(event_id)
+
+
+    print("****\n\n\n", guest, "****\n\n\n")
 
     return jsonify(event_lst)
 
@@ -81,8 +94,6 @@ def new_event():
 
 @app.route('/invite/<event_id>', methods=['GET'])
 def invite_link(event_id):
-
-   
 
     event = crud.get_event_by_id(event_id)
    
@@ -115,4 +126,3 @@ if __name__ == '__main__':
     connect_to_db(app)
     app.run(host='0.0.0.0', debug=True)
 
-    
