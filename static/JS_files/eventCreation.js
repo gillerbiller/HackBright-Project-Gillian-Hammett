@@ -1,6 +1,5 @@
 "use strict";
 
-
 $('#make_event').on('click', (evt) => {
     evt.preventDefault();
 
@@ -12,9 +11,8 @@ $('#make_event').on('click', (evt) => {
     $('#log_out').hide();
 
     $('#event_layout').show();
-    $('#back').show(); 
-    
-    
+    $('#back').show();
+    $('#invite_link').show();         
 });
 
 $('#commit_event_db').on('click', (evt) => {
@@ -37,21 +35,21 @@ $('#commit_event_db').on('click', (evt) => {
         return false;
     }
     $.post('/make_new_event', eventFormInput, (res) =>{
-      
-        const link = window.location.origin + res
+
+        window.sessionStorage.setItem('res', res);
+
+        const event_id = res['event_id']
+
+        const link = window.location.origin + '/invite/' + event_id
        
         const inviteLink = $('<a>', {
 
             text: link,
             title: 'Invitation',
             href: link 
-        }) .appendTo('#invite_link');
-       
+        }) .appendTo('#invite_link');    
     });
-
 });
-
-
 
 $('#back').on('click', (evt) => {
     evt.preventDefault();
@@ -62,11 +60,24 @@ $('#back').on('click', (evt) => {
     $('h2').text('Your events')
 
     $('#user_events').show();
+
+    let event = window.sessionStorage.getItem('res')
+
+    const eventTitle = $(`<ol>${event.event_title}</ol>`)
+    $('#user_events').append(eventTitle);
+
+    const eventLink = $(`<li> ${window.location.origin + '/invite/' + event.event_id}</li>`)
+    $('#user_events').append(eventLink); 
+
+    const description = $(`<li>${event.description}</li>`)
+    $('#user_events').append(description); 
+
     $('#make_event').show();
     $('#log_out').show();
 
     $('#event_layout').hide();
-    $('#back').hide(); 
+    $('#back').hide();
+    $('#invite_link').hide(); 
 
 });
 

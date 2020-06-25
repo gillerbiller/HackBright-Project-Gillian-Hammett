@@ -13,9 +13,10 @@ $('#guest_reply').on('click', (evt) => {
         'lname' : $('#lname').val(),
         'reply' : reply
     };
-    console.log(guestFormInput)
+
+    console.log('guestFormInput', guestFormInput)
+
     $.post('/create_guest', guestFormInput, (res) => {
-        console.log(res)
 
         $('h1').text(`Thank you for sending your reply!`)
 

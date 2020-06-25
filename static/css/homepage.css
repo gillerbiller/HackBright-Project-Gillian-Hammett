@@ -1,12 +1,38 @@
 
 body {
-    background: #333 url("/static/img/side_flower.jpg");
+    background: #333 url("/static/img/floral11.jpg");
+
+    background-position: center 1%;
+
     background-size: cover;
 
+    background-repeat: no-repeat;
+
     color: #228B22;
+}
+
+
+#navigate.transparent {
+    background-color: white;
+}
+
+h1 {
     text-align: center;
 }
 
+h3 {
+    text-align: center;
+}
+
+form {
+    text-align: right;
+    align-items: right;
+    padding: 20px;
+}
+
+ol {
+    font-weight: bold;
+}
 /* site-wrapper and site-wrapper-inner are to vertically center content using
    table/table-cell vertical centering. */
 

@@ -4,6 +4,7 @@
 
 $('#event_layout').hide();
 $('#make_event').hide();
+$('#invite_link').hide();
 
 $('#login').on('click', (evt) => {
     evt.preventDefault();
@@ -35,19 +36,67 @@ $('#login').on('click', (evt) => {
         $.post('/user_homepage', userIdForm, (res) => {
 
             for ( const event of res){
-       
-                const event_title = $(`<ol>${event.event_title}</ol>`)
-                $('#user_events').append(event_title);
+   
+                const eventTitle = $(`<ol>${event.event_title}</ol>`)
+                $('#user_events').append(eventTitle);
+
+                const eventLink = $(`<li> ${window.location.origin + '/invite/' + event.event_id}</li>`)
+                $('#user_events').append(eventLink); 
 
                 const description = $(`<li>${event.description}</li>`)
-                $('#user_events').append(description);
+                $('#user_events').append(description); 
 
-                const date = $(`<li>${event.date}</li>`)
-                $('#user_events').append(date);
+                let yes = 0
+                let yesList = []
+                let no = 0
+                let noList = []
+                let maybe = 0
+                let maybeList = []
+
+                for (const guest of event.guest){
+                    let reply 
+                    if (guest.reply === 0){
+
+                         yes += 1
+
+                         yesList.push(`${guest.fname} ${guest.lname} Yes `)
+                    };
+                    if (guest.reply === 1){
+                        
+                        no += 1
+
+                        noList.push(`${guest.fname} ${guest.lname} No ` )
+                    };
+                    if (guest.reply === 2){
+
+                        maybe += 1
+
+                        maybeList.push(`${guest.fname} ${guest.lname} Maybe ` )
+                    }    
+                }
+
+                const guestReply = $(`<li>Yes ${yes} No ${no} Maybe ${maybe}</li>`)
+                $('#user_events').append(guestReply) 
+
+                const guestList = $(`<li>${yesList}</li> 
+                                    <li>${noList}</li> 
+                                    <li>${maybeList}</li>`)
+                $('#user_events').append(guestList)  
+
+                //event.date make into JS date objest then format MDN docs/moment
+
+                const tempDate = new Date(event.date)
+                console.log(tempDate)
+                const formatDate = tempDate.toDateString()
+                console.log(formatDate)
+
+                const date = $('<li>' + formatDate + '</li>');
+                $('#user_events').append(date)               
+                                
+                
             }
             
         let email = window.sessionStorage.getItem('email');
-        console.log(email)
 
         $('h1').text(`Welcome Back ${email} to your`)
         $('h2').text('Your events')

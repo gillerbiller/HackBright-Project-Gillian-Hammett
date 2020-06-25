@@ -1,6 +1,4 @@
-
 from flask_sqlalchemy import SQLAlchemy
-
 
 db = SQLAlchemy()
 
@@ -41,8 +39,6 @@ class Event(db.Model):
 
     user = db.relationship('User', backref = 'events')
 
-
-
     def __repr__(self):
         return f"<Event event_id = {self.event_id}, event_title = {self.event_title}, \
 Hosted by user_id = {self.user_id} in db>"
@@ -68,8 +64,6 @@ class Guest(db.Model):
         return f"<Guest guest_id = {self.guest_id}, fname = {self.fname} \
 ,lname = {self.lname}, event_id = {self.event_id}, \
 reply = {self.reply}>"
-
-
 
 def connect_to_db(flask_app, db_uri='postgresql:///eventsite', echo = True):
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri

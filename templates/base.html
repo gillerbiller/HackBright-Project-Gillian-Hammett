@@ -4,22 +4,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- CSS only -->
+    
     <link 
         rel="stylesheet" 
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
         crossorigin="anonymous"/>
+       
 
     <link rel="stylesheet" href="/static/css/homepage.css"/> 
+
+    <script
+        src="https://code.jquery.com/jquery-3.4.0.js"
+        integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="
+        crossorigin="anonymous">
+      
+    </script>
+    
     <title>
       {% block title %}{% endblock %}
     </title>
-     <script
-    src="https://code.jquery.com/jquery-3.4.0.js"
-    integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="
-    crossorigin="anonymous">
-      
-    </script>
 
     {% block head %}{% endblock %}
   </head>
@@ -34,10 +38,7 @@
 
     {% block after_body %}{% endblock %}
 
-    <script src="/static/JS_files/homepage.js"></script>
-    <script src="/static/JS_files/guestReply.js"></script>
-    <script src="/static/JS_files/newUser.js"></script>
-    <script src="/static/JS_files/eventCreation.js"></script> 
+   
 
     <script
     src="https://code.jquery.com/jquery-3.5.1.js"
@@ -50,14 +51,16 @@
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"> 
     </script> 
-
   
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" crossorigin="anonymous"></script>
 
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" crossorigin="anonymous"/>-->
+    <script src="/static/JS_files/homepage.js"></script>
+    <script src="/static/JS_files/guestReply.js"></script>
+    <script src="/static/JS_files/newUser.js"></script>
+    <script src="/static/JS_files/eventCreation.js"></script> 
 
   </body>
 </html>

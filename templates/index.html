@@ -2,50 +2,43 @@
 {% block title %}Homepage{%endblock%}
 
 {%block body%}
+<div id="navigate">
+    <nav class="navbar navbar-expand-md transparent sticky-top">
+         <button class="navbar-toggler" type="button" data-toggle="collapse" 
+         data-target="#navbarSupportedContent" 
+         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top"></nav>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
+            <form id = "credentials" action="/validate_user" method="post">
+                <input type="text" id="email" placeholder="user@gmail.com" required>
+                <input type="password" id="password" placeholder="*******" required>
+                <button id="login" type = "submit" action="" class="btn btn-light">Log In</button>
+            </form> 
+            
+            <form id = "create_account" action="/create_user" method="POST">
+                <input type="text" id="new_email" placeholder="myemail@gmail.com" required>
+                <input type="password" id="new_password" placeholder="******" required>
+                <button id="new_user" type="submit" class="btn btn-light">Make Account</button>
+            </form> 
+
+        </div>
+    </nav> 
+</div>
     <h1>Welcome to Growing Ties!</h1>
         <h3>Personal Event Creation Space</h3>
 
-        <form id = "credentials" action="/validate_user" method="post">
-            <h3>Log in</h3>
-        
-            Enter your account email<input type="text" id="email" placeholder="user@gmail.com" required>
-
-           <br>
-
-            Enter your password<input type="password" id="password" placeholder="*******" required>
-
-            <br>
-            
-             <button id="login" type = "submit" action="">Log In</button>
-
-        </form> 
-
-        
-        <form id = "create_account" action="/create_user" method="POST">
-            <h3>Create Account</h3>
-            
-                Please enter your email<input type="text" id="new_email" placeholder="myemail@gmail.com" required>
-
-                <br>
-
-                Enter a password<input type="password" id="new_password" placeholder="******" required>
-
-                <br>
-           
-                <button id="new_user" type="submit">Make Account</button>
-            
-        </form> 
-
         <button id ='log_out' 
-                style="display: none">
+                style="display: none"
+                class="btn btn-light">
                 Log Out
         </button>
 
         <button id ='back' 
-                style="display: none">
+                style="display: none"
+                class="btn btn-light">
                 Back to previous page
         </button>
 
@@ -53,8 +46,9 @@
 
         <h2> </h2>
         <div id='user_events' style="display: none"></div>
+        <div><ul id="event_link"></ul></div>
 
-        <button id ='make_event'>Make a new event!</button>
+        <button id ='make_event' class="btn btn-light">Make a new event!</button>
     
     
  <!-------------- Create Event page ---------------->
@@ -71,9 +65,10 @@
             <input type="text" id="date">
             <br>
             <br>
-            <button id='commit_event_db'>Create Event!</button>
+            <button id='commit_event_db' class="btn btn-light">Create Event!</button>
         </form>
-        <div id="invite_link"></div>
+        <div id="invite_link">Your invite link will appear here. Be sure to copy
+and save it for use before leaving the page! </div>
    
     <script >let event_id ;</script>
 
@@ -89,14 +84,12 @@
         })
     </script>
 
-    
-<!--   <footer>
-        <p>Designed and Owned by Gillian Hammett 2020.</p>
-    </footer>-->
    
 {% endblock %}
   
- 
+<!--   <footer>
+        <p>Designed and Owned by Gillian Hammett 2020.</p>
+    </footer>-->
 
 
     

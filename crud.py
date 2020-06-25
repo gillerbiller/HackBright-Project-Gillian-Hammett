@@ -36,8 +36,6 @@ def get_user_by_email_password(email, password):
     else:
         return user
 
-    #return User.query.filter(User.email == email, User.password == password).first()
-
 def create_event(user_id, event_title, description, date):
     """Create and return a new event"""
 
@@ -52,12 +50,14 @@ def create_event(user_id, event_title, description, date):
     return event
 
 def get_all_events_for_user_by_id(user_id):
+    """Return all events for a user"""
 
     user = User.query.get(user_id)
 
     return user.events
 
 def get_event_by_id(event_id):
+    """Return event by id"""
 
     event = Event.query.get(event_id)
 
@@ -77,6 +77,7 @@ def create_guest(event_id, fname, lname, reply):
     return guest
 
 def get_guest_for_event(event_id):
+    """Return all guests for a specific"""
 
     event = Event.query.get(event_id)
 

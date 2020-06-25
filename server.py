@@ -3,6 +3,8 @@ from flask import Flask, render_template, request, flash, session, redirect, jso
 from model import connect_to_db
 import crud
 from jinja2 import StrictUndefined
+from operator import itemgetter
+
 
 app = Flask(__name__)
 app.secret_key = "hbprojectgh"
@@ -17,6 +19,7 @@ def homepage():
 
 @app.route('/create_user', methods=['POST'])
 def create_user():
+    """Create a new user"""
    
     email = request.form.get('new_email')
     password = request.form.get('new_password')
@@ -31,7 +34,7 @@ def create_user():
 
 @app.route('/validate_user', methods=['POST'])
 def user_login():
-    
+    """Check a user exists in DB for login"""
 
     email = request.form.get("email")
     password = request.form.get("password")
@@ -46,39 +49,44 @@ def user_login():
 
 @app.route('/user_homepage', methods=['POST'])
 def user_page():
+    """Return user homepage information"""
 
     user_id = request.form.get("user_id") 
 
     events = crud.get_all_events_for_user_by_id(user_id)
 
-    print("****\n\n\n", events, "****\n\n\n")
-
     event_lst = []
     for event in events:
-        event_lst.append(
+        event_id = event.event_id
+        guests = crud.get_guest_for_event(event_id)
+
+        new_guest_list = []
+        for guest in guests:
+            new_guest_list.append({
+            'fname': guest.fname,
+            'lname': guest.lname, 
+            'reply': guest.reply
+            })
+
+        event_lst.append( 
                             {
+                            'event_id' : event.event_id,
                             'event_title': event.event_title,
                             'description': event.description,
-                            'date': event.date
+                            'date': event.date,
+                            'guest': new_guest_list
                             }
                         )
-  
-    event_id_lst = []
-    for event in events:
-        event_id_lst.append(event.event_id)
 
-    for event_id in event_id_lst:
+    event_lst_sorted = sorted(event_lst, key= itemgetter('date'))
 
-        guest = crud.get_guest_for_event(event_id)
-
-
-    print("****\n\n\n", guest, "****\n\n\n")
-
-    return jsonify(event_lst)
-
+    return jsonify(event_lst_sorted) 
+    
 
 @app.route('/make_new_event', methods=['POST'])
 def new_event():
+    """Return a new event"""
+
     user_id1 = request.form.get("user_id")
     user_id = int(user_id1)
     event_title = request.form.get("event_title")
@@ -86,14 +94,20 @@ def new_event():
     date = request.form.get("date")
 
     event = crud.create_event(user_id, event_title, description, date)
+
+
+    event_item ={
+                'event_id' : event.event_id,
+                'event_title': event.event_title,
+                'description': event.description,
+                'date': event.date,
+                }                   
     
-    return jsonify(f'/invite/{event.event_id}') 
-
- 
-
+    return jsonify(event_item) 
 
 @app.route('/invite/<event_id>', methods=['GET'])
 def invite_link(event_id):
+    """Return a link to a new event"""
 
     event = crud.get_event_by_id(event_id)
    
@@ -103,6 +117,7 @@ def invite_link(event_id):
 
 @app.route('/create_guest', methods=['POST'])
 def new_guest_for_specific_event():
+    """Return a new guest for a specific event"""
 
     event_id = request.form.get('event_id')
     fname = request.form.get('fname')
@@ -111,15 +126,13 @@ def new_guest_for_specific_event():
 
     guest = crud.create_guest(event_id, fname, lname, reply)
 
-
-    guest = {
+    new_guest = {
         'fname': guest.fname,
         'lname': guest.lname,
+        'reply': guest.reply
     }
 
-    return jsonify(guest)
-
-
+    return jsonify(new_guest)
 
 
 if __name__ == '__main__':
