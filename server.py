@@ -78,7 +78,7 @@ def user_page():
                             }
                         )
 
-    event_lst_sorted = sorted(event_lst, key= itemgetter('date'))
+    event_lst_sorted = sorted(event_lst, key= itemgetter('date'), reverse = True)
 
     return jsonify(event_lst_sorted) 
     

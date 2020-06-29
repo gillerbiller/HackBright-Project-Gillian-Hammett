@@ -7,12 +7,14 @@ $('#make_event').on('click', (evt) => {
     $('h2').text('New Event')
 
     $('#user_events').hide();
+    $('#most_relevant_events').hide();
     $('#make_event').hide();
     $('#log_out').hide();
 
     $('#event_layout').show();
     $('#back').show();
-    $('#invite_link').show();         
+    $('#new_event_link').html('Your invite link will appear bellow and on your homepage. \
+Just copy the link and send it to your friends to invite them to your new event!');         
 });
 
 $('#commit_event_db').on('click', (evt) => {
@@ -36,18 +38,33 @@ $('#commit_event_db').on('click', (evt) => {
     }
     $.post('/make_new_event', eventFormInput, (res) =>{
 
-        window.sessionStorage.setItem('res', res);
-
         const event_id = res['event_id']
+        const event_title = res['event_title']
+        const description = res['description']
+        const date = res['date']
 
         const link = window.location.origin + '/invite/' + event_id
-       
         const inviteLink = $('<a>', {
 
             text: link,
             title: 'Invitation',
             href: link 
-        }) .appendTo('#invite_link');    
+        }) .appendTo('#invite_link');
+
+        const eventTitle = $(`<ol>${event_title}</ol>`)
+        $('#user_events').append(eventTitle);
+
+        const eventLink = $(`<li> ${window.location.origin + '/invite/' + event_id}</li>`)
+        $('#user_events').append(eventLink); 
+
+        const eventDescription = $(`<li>${description}</li>`)
+        $('#user_events').append(eventDescription);
+
+        const tempDate = new Date(date)
+        const formatDate = tempDate.toDateString()
+        const eventDate = $('<li>' + formatDate + '</li>');
+        $('#user_events').append(eventDate)       
+
     });
 });
 
@@ -56,28 +73,20 @@ $('#back').on('click', (evt) => {
 
     let email = window.sessionStorage.getItem('email');
 
-    $('h1').text(`${email}'s' Homepage.`)
-    $('h2').text('Your events')
+    $('h1').text(`${email}'s' Homepage.`);
+    $('h2').text('Your events');
+
+    $('#event_layout')[0].reset();
+    $('#invite_link').html("");
 
     $('#user_events').show();
-
-    let event = window.sessionStorage.getItem('res')
-
-    const eventTitle = $(`<ol>${event.event_title}</ol>`)
-    $('#user_events').append(eventTitle);
-
-    const eventLink = $(`<li> ${window.location.origin + '/invite/' + event.event_id}</li>`)
-    $('#user_events').append(eventLink); 
-
-    const description = $(`<li>${event.description}</li>`)
-    $('#user_events').append(description); 
-
+    $('#most_relevant_events').show();
     $('#make_event').show();
     $('#log_out').show();
 
     $('#event_layout').hide();
     $('#back').hide();
-    $('#invite_link').hide(); 
+    $('#new_event_link').html(''); 
 
 });
 

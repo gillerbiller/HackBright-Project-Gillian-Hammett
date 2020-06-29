@@ -4,7 +4,7 @@
 
 $('#event_layout').hide();
 $('#make_event').hide();
-$('#invite_link').hide();
+$('#most_relevant_events').hide();
 
 $('#login').on('click', (evt) => {
     evt.preventDefault();
@@ -35,6 +35,36 @@ $('#login').on('click', (evt) => {
 
         $.post('/user_homepage', userIdForm, (res) => {
 
+            let counter = 0
+            for (const event of res){
+
+                if (counter < 4){
+                    counter = counter + 1;
+                } else{
+                    break
+                }
+
+                const today = new Date();
+                const eventDate = new Date(event.date)
+
+                if(eventDate >= today){
+
+                    const eventTitle = $(`<ol>${event.event_title}</ol>`)
+                    $('#most_relevant_events').append(eventTitle);
+
+                    const eventLink = $(`<li> ${window.location.origin + '/invite/' + event.event_id}</li>`)
+                    $('#most_relevant_events').append(eventLink); 
+
+                    const description = $(`<li>${event.description}</li>`)
+                    $('#most_relevant_events').append(description); 
+
+                    const tempDate = new Date(event.date)
+                    const formatDate = tempDate.toDateString()
+                    const date = $('<li>' + formatDate + '</li>');
+                    $('#most_relevant_events').append(date)      
+                }
+            }
+
             for ( const event of res){
    
                 const eventTitle = $(`<ol>${event.event_title}</ol>`)
@@ -45,6 +75,11 @@ $('#login').on('click', (evt) => {
 
                 const description = $(`<li>${event.description}</li>`)
                 $('#user_events').append(description); 
+
+                const tempDate = new Date(event.date)
+                const formatDate = tempDate.toDateString()
+                const date = $('<li>' + formatDate + '</li>');
+                $('#user_events').append(date)      
 
                 let yes = 0
                 let yesList = []
@@ -81,34 +116,31 @@ $('#login').on('click', (evt) => {
                 const guestList = $(`<li>${yesList}</li> 
                                     <li>${noList}</li> 
                                     <li>${maybeList}</li>`)
-                $('#user_events').append(guestList)  
-
-                //event.date make into JS date objest then format MDN docs/moment
-
-                const tempDate = new Date(event.date)
-                console.log(tempDate)
-                const formatDate = tempDate.toDateString()
-                console.log(formatDate)
-
-                const date = $('<li>' + formatDate + '</li>');
-                $('#user_events').append(date)               
-                                
-                
+                $('#user_events').append(guestList)           
+                                     
             }
             
         let email = window.sessionStorage.getItem('email');
 
         $('h1').text(`Welcome Back ${email} to your`)
-        $('h2').text('Your events')
+      
 
         $('#user_events').show();
+        $('#most_relevant_events').show();
         $('#log_out').show();
         $('#make_event').show();
 
         $('#create_account').hide();
         $('#credentials').hide();
         $('#event_layout').hide();
-        $('#back').hide();    
+        $('#back').hide();
+        $('#imagehp').hide();
+        $('#how_to_img').hide();
+        $('#how_to').hide();
+        $('#get_started_img').hide();
+        $('#get_started').hide();
+        $('#done').hide(); 
+        $('#done_img').hide();   
         });    
         
     });
@@ -120,21 +152,30 @@ $('#log_out').on('click', (evt) =>{
     evt.preventDefault();
 
     window.sessionStorage.clear();
-    $('#user_events').html('')
-    $('#credentials')[0].reset()
-    //$('#email').text('')
-    //$('#password').text('') 
+    $('#today').html(''); //TEMPORARY 
 
-    $('h1').text('Welcome To Event Creations!')
-    $('h2').text('Your events').hide()
+    $('#user_events').html('');
+    $('#most_relevant_events').html('');
+    $('#credentials')[0].reset();
+
+    $('h1').text('Welcome to Growing Ties!').show();
+    $('h2').text('Your events').hide();
 
     $('#user_events').hide();
     $('#log_out').hide();
     $('#make_event').hide();
     $('#event_layout').hide();
 
+    $('#new_event_link').html('');
+
     $('#create_account').show();
     $('#credentials').show();
+    $('#imagehp').show();
+    $('#how_to_img').show();
+    $('#how_to').show();
+    $('#get_started_img').show();
+    $('#done').show();
+    $('#done_img').show();  
     
 });
 
