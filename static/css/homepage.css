@@ -2,6 +2,7 @@
 body {
 
     color: #228B22;
+    background-position: center center;
 }
 .btn{
    color: #228B22;
@@ -25,9 +26,43 @@ body {
     padding-bottom: 10px;
 
 }
-#most_relevant_events{
-    color: pink;
+.fade-in-color {
+  color: #228B22;
+  transition: 0.5s color ease;
 }
+#most_relevant_events{
+    background-image: url('/static/img/floral28.jpg');
+    background-repeat: no-repeat;
+    background-position: 40% 30%;
+   
+}
+
+.see_through{
+    background-color: transparent;
+    font-weight: bold;
+}
+.list-group-flush>.list-group-item {
+    border-width: 0 0 0px;
+}
+#events_soon{
+    font-size: 30px;
+    font-style: italic;
+    font-family: 'Raleway', sans-serif;
+}
+#all_event_btn{
+    font-size: 40px;
+    font-style: italic;
+    font-family: 'Raleway', sans-serif;
+}
+
+ul.borderless {
+    list-style-type: none;
+    
+}
+li.see_through{
+    list-style-type: none;
+}
+
 h1 {
     text-align: center;
     font-family: 'Raleway', sans-serif;
@@ -43,12 +78,40 @@ h3 {
 p{
     font-family: 'Raleway', sans-serif;
 }
-form {
-    text-align: right;
-    align-items: right;
-    padding: 20px;
+
+
+#event_layout{
+    font-size: 20px;
+}
+#new_event_link{
+    font-size: 20px;
+    font-style: italic;
 }
 
-ol {
+
+#event_title{
+    background-color: #FFFBFB;
+    border-color: #ffe6b3;
+}
+#description{
+    background-color: #FFFBFB;
+    border-color: #ffe6b3;
+}
+#date{
+    background-color: #FFFBFB;
+    border-color: #ffe6b3;
+}
+#newevent{
+    padding-top: 90px;
+    background-repeat: no-repeat;
+    background-position: 0.75% 20%;
+}
+#invitationDes{
+    font-size: 20px;
     font-weight: bold;
+    font-family: 'Raleway', sans-serif;
+}
+#inviteDate{
+    font-weight: bold;
+    font-family: 'Raleway', sans-serif;
 }

@@ -4,7 +4,10 @@
 
 $('#event_layout').hide();
 $('#make_event').hide();
-$('#most_relevant_events').hide();
+
+$('#all_event_btn').hide();
+$('#all_events_img').hide();
+$('#events_soon').hide();
 
 $('#login').on('click', (evt) => {
     evt.preventDefault();
@@ -35,6 +38,8 @@ $('#login').on('click', (evt) => {
 
         $.post('/user_homepage', userIdForm, (res) => {
 
+            //4 soonest events ordered by date//
+
             let counter = 0
             for (const event of res){
 
@@ -49,37 +54,78 @@ $('#login').on('click', (evt) => {
 
                 if(eventDate >= today){
 
-                    const eventTitle = $(`<ol>${event.event_title}</ol>`)
+                    const eventTitle = $(`<div class="col-md-6"><ul id=${event.event_id} class="list-group list-group-flush see_through">${event.event_title}</ul></div>`)
                     $('#most_relevant_events').append(eventTitle);
 
-                    const eventLink = $(`<li> ${window.location.origin + '/invite/' + event.event_id}</li>`)
-                    $('#most_relevant_events').append(eventLink); 
+                    const eventLink = $(`<li class="list-group-item see_through"><a class="fade-in-color" href=${window.location.origin + '/invite/' + event.event_id}>Invite Link to ${event.event_title}</a></li>`)
+                    $(`#${event.event_id}`).append(eventLink); 
 
-                    const description = $(`<li>${event.description}</li>`)
-                    $('#most_relevant_events').append(description); 
+                    const description = $(`<li class="list-group-item see_through">${event.description}</li>`)
+                    $(`#${event.event_id}`).append(description); 
 
                     const tempDate = new Date(event.date)
                     const formatDate = tempDate.toDateString()
-                    const date = $('<li>' + formatDate + '</li>');
-                    $('#most_relevant_events').append(date)      
-                }
+                    const date = $('<li class="list-group-item see_through">' + formatDate + '</li>');
+                    $(`#${event.event_id}`).append(date) 
+
+                    let yes = 0
+                    let yesList = []
+                    let no = 0
+                    let noList = []
+                    let maybe = 0
+                    let maybeList = []
+
+                    for (const guest of event.guest){
+                        let reply 
+                        if (guest.reply === 0){
+
+                             yes += 1
+
+                             yesList.push(`${guest.fname} ${guest.lname} (Yes) `)
+                        };
+                        if (guest.reply === 1){
+                            
+                            no += 1
+
+                            noList.push(`${guest.fname} ${guest.lname} (No) ` )
+                        };
+                        if (guest.reply === 2){
+
+                            maybe += 1
+
+                            maybeList.push(`${guest.fname} ${guest.lname} (Maybe) ` )
+                        }    
+                    }
+
+                    const guestReply = $(`<li class="list-group-item see_through">Yes ${yes} No ${no} Maybe ${maybe}</li>`)
+                    $(`#${event.event_id}`).append(guestReply) 
+
+                    const guestList = $(`<li class="list-group-item see_through">${yesList}</li> 
+                                        <li class="list-group-item see_through">${noList}</li> 
+                                        <li class="list-group-item see_through">${maybeList}</li>`)
+                    $(`#${event.event_id}`).append(guestList)         
+                    }
             }
 
+            //All user events//
+
             for ( const event of res){
-   
-                const eventTitle = $(`<ol>${event.event_title}</ol>`)
-                $('#user_events').append(eventTitle);
+                
+                let uniqueId = event.event_id +'abc'            
 
-                const eventLink = $(`<li> ${window.location.origin + '/invite/' + event.event_id}</li>`)
-                $('#user_events').append(eventLink); 
+                const eventTitle = $(`<div class="col-md-6"><ol id=${uniqueId} class="list-group list-group-flush">${event.event_title}</ol></div>`)
+                $("#user_events").append(eventTitle);
 
-                const description = $(`<li>${event.description}</li>`)
-                $('#user_events').append(description); 
+                const eventLink = $(`<li class="list-group-item see_through"><a class="fade-in-color" href=${window.location.origin + '/invite/' + event.event_id}>Invite Link to ${event.event_title}</a></li>`)
+                $(`#${uniqueId}`).append(eventLink); 
+
+                const description = $(`<li class="list-group-item ">${event.description}</li>`)
+                $(`#${uniqueId}`).append(description); 
 
                 const tempDate = new Date(event.date)
                 const formatDate = tempDate.toDateString()
-                const date = $('<li>' + formatDate + '</li>');
-                $('#user_events').append(date)      
+                const date = $('<li class="list-group-item ">' + formatDate + '</li>');
+                $(`#${uniqueId}`).append(date)      
 
                 let yes = 0
                 let yesList = []
@@ -110,13 +156,13 @@ $('#login').on('click', (evt) => {
                     }    
                 }
 
-                const guestReply = $(`<li>Yes ${yes} No ${no} Maybe ${maybe}</li>`)
-                $('#user_events').append(guestReply) 
+                const guestReply = $(`<li class="list-group-item ">Yes ${yes} No ${no} Maybe ${maybe}</li>`)
+                $(`#${uniqueId}`).append(guestReply) 
 
-                const guestList = $(`<li>${yesList}</li> 
-                                    <li>${noList}</li> 
-                                    <li>${maybeList}</li>`)
-                $('#user_events').append(guestList)           
+                const guestList = $(`<li class="list-group-item ">${yesList}</li> 
+                                    <li class="list-group-item ">${noList}</li> 
+                                    <li class="list-group-item ">${maybeList}</li>`)
+                $(`#${uniqueId}`).append(guestList)           
                                      
             }
             
@@ -129,9 +175,14 @@ $('#login').on('click', (evt) => {
         $('#most_relevant_events').show();
         $('#log_out').show();
         $('#make_event').show();
+        $('#all_event_btn').show();
+        $('#all_events_img').show();
+        $('#events_soon').show();
 
         $('#create_account').hide();
+        $('#login_display').hide();
         $('#credentials').hide();
+        $('#sign_up').hide();
         $('#event_layout').hide();
         $('#back').hide();
         $('#imagehp').hide();
@@ -140,7 +191,9 @@ $('#login').on('click', (evt) => {
         $('#get_started_img').hide();
         $('#get_started').hide();
         $('#done').hide(); 
-        $('#done_img').hide();   
+        $('#done_img').hide();
+        $('h3').hide();
+        $('h3').hide();   
         });    
         
     });
@@ -165,17 +218,21 @@ $('#log_out').on('click', (evt) =>{
     $('#log_out').hide();
     $('#make_event').hide();
     $('#event_layout').hide();
+    $('#events_soon').hide();
 
     $('#new_event_link').html('');
 
     $('#create_account').show();
+    $('#sign_up').show();
     $('#credentials').show();
+    $('#login_display').show();
     $('#imagehp').show();
     $('#how_to_img').show();
     $('#how_to').show();
     $('#get_started_img').show();
     $('#done').show();
-    $('#done_img').show();  
+    $('#done_img').show();
+
     
 });
 

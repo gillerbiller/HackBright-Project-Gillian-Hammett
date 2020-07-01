@@ -2,14 +2,17 @@
 
 $('#make_event').on('click', (evt) => {
     evt.preventDefault();
-
+    $('body').css('background-image' ,'url(/static/img/floral21.jpg)');
     $('h1').text('New event page!')
-    $('h2').text('New Event')
 
     $('#user_events').hide();
-    $('#most_relevant_events').hide();
+    $('#first_seen_events').hide();
     $('#make_event').hide();
     $('#log_out').hide();
+    $('#events_soon').hide();
+    $('#first_events').hide();
+    $('#all_event_btn').hide();
+    
 
     $('#event_layout').show();
     $('#back').show();
@@ -42,6 +45,7 @@ $('#commit_event_db').on('click', (evt) => {
         const event_title = res['event_title']
         const description = res['description']
         const date = res['date']
+        console.log(event_id)
 
         const link = window.location.origin + '/invite/' + event_id
         const inviteLink = $('<a>', {
@@ -50,20 +54,22 @@ $('#commit_event_db').on('click', (evt) => {
             title: 'Invitation',
             href: link 
         }) .appendTo('#invite_link');
+        console.log(inviteLink)
+        //NEEDS TESTING 
+        const eventTitle = $(`<div class="col-md-6"><ol id=${event.event_id} class="list-group list-group-flush see_through">${event_title}</ol></div>`)
+        $('#most_relevant_events').append(eventTitle);
 
-        const eventTitle = $(`<ol>${event_title}</ol>`)
-        $('#user_events').append(eventTitle);
+        const eventLink = $(`<li class="list-group-item see_through"><a class="fade-in-color" href=${window.location.origin + '/invite/' + event_id}>Invite Link to your new event!</a></li>`)        
+        $(`#${event.event_id}`).append(eventLink); 
+        console.log(eventLink)
 
-        const eventLink = $(`<li> ${window.location.origin + '/invite/' + event_id}</li>`)
-        $('#user_events').append(eventLink); 
-
-        const eventDescription = $(`<li>${description}</li>`)
-        $('#user_events').append(eventDescription);
+        const eventDescription = $(`<li class="list-group-item see_through">${description}</li>`)
+        $(`#${event.event_id}`).append(eventDescription);
 
         const tempDate = new Date(date)
         const formatDate = tempDate.toDateString()
-        const eventDate = $('<li>' + formatDate + '</li>');
-        $('#user_events').append(eventDate)       
+        const eventDate = $('<li class="list-group-item see_through">' + formatDate + '</li>');
+        $(`#${event.event_id}`).append(eventDate)       
 
     });
 });
@@ -73,16 +79,22 @@ $('#back').on('click', (evt) => {
 
     let email = window.sessionStorage.getItem('email');
 
-    $('h1').text(`${email}'s' Homepage.`);
-    $('h2').text('Your events');
+    $('h1').text(`${email}'s Homepage.`);
+    $('body').css('background-image', 'none');
 
     $('#event_layout')[0].reset();
     $('#invite_link').html("");
 
     $('#user_events').show();
-    $('#most_relevant_events').show();
+    $('#first_events').show();
     $('#make_event').show();
     $('#log_out').show();
+    $('#all_event_btn').show();
+    $('#first_events').show();
+    $('#events_soon').show();
+   
+    
+    
 
     $('#event_layout').hide();
     $('#back').hide();
