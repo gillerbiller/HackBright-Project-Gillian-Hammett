@@ -1,18 +1,26 @@
 "use strict";
-
+//Need to add some functionality to close All Events feature when make event
+//button is clicked 
 $('#make_event').on('click', (evt) => {
     evt.preventDefault();
-    $('body').css('background-image' ,'url(/static/img/floral21.jpg)');
-    $('h1').text('New event page!')
 
-    $('#user_events').hide();
+    $('#all_events').removeClass('show');
+    $('#user_events').removeClass('show');
+
+    $('body').css('background-image' ,' linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55)), url(/static/img/floral23.jpg)');
+
+
+
+
+    $('h1').text('New event page!')
+    $('h2').text('Your events').hide();
+
     $('#first_seen_events').hide();
-    $('#make_event').hide();
-    $('#log_out').hide();
     $('#events_soon').hide();
     $('#first_events').hide();
+    $('#make_event').hide();
+    $('#log_out').hide();
     $('#all_event_btn').hide();
-    
 
     $('#event_layout').show();
     $('#back').show();
@@ -30,8 +38,6 @@ $('#commit_event_db').on('click', (evt) => {
         'date': $('#date').val()
     };
 
-    console.log(eventFormInput)
-
     if ($("#event_title").val() === "" || $("#description").val() === "" 
         || $('#datepicker-13').val() === "") {
 
@@ -45,7 +51,8 @@ $('#commit_event_db').on('click', (evt) => {
         const event_title = res['event_title']
         const description = res['description']
         const date = res['date']
-        console.log(event_id)
+        console.log(date)
+
 
         const link = window.location.origin + '/invite/' + event_id
         const inviteLink = $('<a>', {
@@ -54,22 +61,21 @@ $('#commit_event_db').on('click', (evt) => {
             title: 'Invitation',
             href: link 
         }) .appendTo('#invite_link');
-        console.log(inviteLink)
-        //NEEDS TESTING 
-        const eventTitle = $(`<div class="col-md-6"><ol id=${event.event_id} class="list-group list-group-flush see_through">${event_title}</ol></div>`)
+   
+        const eventTitle = $(`<div class="col-md-6"><ol id=${event_id} class="list-group list-group-flush see_through"><h4>${event_title}</h4></ol></div>`)
         $('#most_relevant_events').append(eventTitle);
 
         const eventLink = $(`<li class="list-group-item see_through"><a class="fade-in-color" href=${window.location.origin + '/invite/' + event_id}>Invite Link to your new event!</a></li>`)        
-        $(`#${event.event_id}`).append(eventLink); 
-        console.log(eventLink)
+        $(`#${event_id}`).append(eventLink); 
 
         const eventDescription = $(`<li class="list-group-item see_through">${description}</li>`)
-        $(`#${event.event_id}`).append(eventDescription);
+        $(`#${event_id}`).append(eventDescription);
 
         const tempDate = new Date(date)
-        const formatDate = tempDate.toDateString()
-        const eventDate = $('<li class="list-group-item see_through">' + formatDate + '</li>');
-        $(`#${event.event_id}`).append(eventDate)       
+        const formatDate = tempDate.toLocaleString('en-US', { timeZone: 'UTC' })
+        const formatDateSlice = formatDate.slice(0,10); 
+        const eventDate = $('<li class="list-group-item see_through">' + formatDateSlice + '</li>');
+        $(`#${event_id}`).append(eventDate)       
 
     });
 });
@@ -89,13 +95,13 @@ $('#back').on('click', (evt) => {
     $('#first_events').show();
     $('#make_event').show();
     $('#log_out').show();
+
     $('#all_event_btn').show();
+
     $('#first_events').show();
     $('#events_soon').show();
-   
-    
-    
 
+    
     $('#event_layout').hide();
     $('#back').hide();
     $('#new_event_link').html(''); 

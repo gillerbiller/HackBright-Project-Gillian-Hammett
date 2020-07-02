@@ -8,7 +8,7 @@ body {
    color: #228B22;
    outline-color: #228B22;  
 }
-.container-fluid{
+/*.container-fluid{
     border: 1px dotted #cc2222;
 }
 .row{
@@ -18,34 +18,39 @@ body {
 .col{
     border: 1px dotted #cc2222;
 }
+*/
 #imagehp{
-    border: 1px dotted #cc2222;
-
-    max-height: 550px;
-    
+    max-height: 890px;
+    max-width: 750px;
     padding-bottom: 10px;
-
+    background-repeat: no-repeat;
 }
 .fade-in-color {
+  font-weight: bold;  
   color: #228B22;
   transition: 0.5s color ease;
 }
 #most_relevant_events{
-    background-image: url('/static/img/floral28.jpg');
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('/static/img/floral24.jpg');  
     background-repeat: no-repeat;
-    background-position: 40% 30%;
+    background-position: center center;
    
+}
+#all_events{
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('/static/img/floral29.jpg');  
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    p
 }
 
 .see_through{
     background-color: transparent;
-    font-weight: bold;
 }
 .list-group-flush>.list-group-item {
     border-width: 0 0 0px;
 }
 #events_soon{
-    font-size: 30px;
     font-style: italic;
     font-family: 'Raleway', sans-serif;
 }
@@ -55,13 +60,6 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 
-ul.borderless {
-    list-style-type: none;
-    
-}
-li.see_through{
-    list-style-type: none;
-}
 
 h1 {
     text-align: center;
@@ -75,6 +73,9 @@ h3 {
     text-align: center;
     font-family: 'Raleway', sans-serif;
 }
+h4{
+    color: #1c731c;
+}
 p{
     font-family: 'Raleway', sans-serif;
 }
@@ -83,11 +84,17 @@ p{
 #event_layout{
     font-size: 20px;
 }
+
 #new_event_link{
-    font-size: 20px;
+    background-color: transparent;
+    background-position: center center;
+    font-size: 18px;
     font-style: italic;
 }
 
+#invite_link{
+    font-size: 19px;
+}
 
 #event_title{
     background-color: #FFFBFB;
@@ -108,10 +115,8 @@ p{
 }
 #invitationDes{
     font-size: 20px;
-    font-weight: bold;
     font-family: 'Raleway', sans-serif;
 }
 #inviteDate{
-    font-weight: bold;
     font-family: 'Raleway', sans-serif;
 }

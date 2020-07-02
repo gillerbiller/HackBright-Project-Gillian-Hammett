@@ -14,9 +14,8 @@ $('#new_user').on('click', (evt) => {
         alert('you did not fill out one of the fields');
         return false;
     };
-
+    
      $.post('/create_user', newFormInput, (res) => {
-        console.log(res)
 
         if(res === 'null'){
             alert('That email already has an account. Please login or try again');

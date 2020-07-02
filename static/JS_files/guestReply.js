@@ -1,7 +1,5 @@
 "use strict";
 
-console.log(event_id)
-
 $('#guest_reply').on('click', (evt) => {
     evt.preventDefault();
   
@@ -13,8 +11,6 @@ $('#guest_reply').on('click', (evt) => {
         'lname' : $('#lname').val(),
         'reply' : reply
     };
-
-    console.log('guestFormInput', guestFormInput)
 
     $.post('/create_guest', guestFormInput, (res) => {
 
