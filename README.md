@@ -1,6 +1,7 @@
 ## Contents
 * [About Me](#about)
 * [Tech Stack](#tech-stack)
+* [Link to video demo of project](#demo)
 * [Features](#features)
 * [Possible Future Development](#future)
 * [Installation](#installation)
@@ -21,6 +22,9 @@ Gillian became a student at HackBright to sharpen her skills and actualize her d
 * Bootstrap
 * Bootstrap Datepicker 
 * jQuery/AJAX
+
+## <a name="demo"></a> Video Demo of site
+[Youtube link to site demo](https://www.youtube.com/watch?v=p59LmqY-a3c&t=5s)
 
 ## <a name="features"></a>Features
 
